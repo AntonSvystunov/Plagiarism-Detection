@@ -4,6 +4,9 @@ namespace Plagiarism
 {
     public class Detector
     {
-        public Detector() { }
+        public Detector()
+        {
+            
+        }
     }
 }
