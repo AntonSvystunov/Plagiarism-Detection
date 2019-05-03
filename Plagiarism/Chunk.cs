@@ -36,7 +36,7 @@ namespace Plagiarism
         {
             filter = string.Format("^{0}$", filter.Replace("*", ".*"));
 
-            var files = Directory.EnumerateFiles(dirPath);
+            var files = Directory.GetFiles(dirPath).ToList();
             files = files.Where(x => Regex.IsMatch(x, filter, RegexOptions.IgnoreCase) == true).ToList();
 
             var res = new Chunk();
