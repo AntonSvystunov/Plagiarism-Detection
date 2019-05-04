@@ -10,27 +10,37 @@ namespace PlagiarismTest
 {
     class Program
     {
+        static void Process(string filename)
+        {
 
-        static void Main(string[] args)
+        }
+
+        static void Test1()
         {
             //Chunk chunk1 = Chunk.FromDirectory(@"E:\Projects C++\sandboxapp", "*.cpp");
             //Chunk chunk2 = Chunk.FromDirectory(@"E:\Projects C++\sandboxapp2", "*.cpp");
 
-            //LexicalAnalyzer lexical = new LexicalAnalyzer();
-            ////var lex1 = lexical.process(chunk1.SourceCode);
-            ////var lex2 = lexical.process(chunk2.SourceCode);
+            var l = Chunk.FindLongestCommonLexemeRow(chunk1.SourceCode, chunk2.SourceCode);
+            Console.WriteLine(l.Count);
+            Console.ReadLine();
+        }
 
-            //foreach (var lex in lex1)
-            //{
-            //    Console.WriteLine($"'{lex.value}' + {lex.type}");
-            //}
+        static void Main(string[] args)
+        {
+            try
+            {
+                if (args.Length < 1)
+                {
+                    Console.WriteLine("Too few args");
+                    Console.WriteLine("USAGE <path-to-project> [<filter>] [-cpp]");
+                }
 
-            //Chunk chunk = new Chunk();
+                string filename = args[0];
+                string filter = null;
+                bool isCpp = false;
 
-            //if(args.Length < 1)
-            //{
-            //    Console.WriteLine($"'{lex.value}' - {lex.type}");
-            //}
+                if (args.Length > 1)
+                {
 
             FSChunkLibrary library;
 
@@ -66,16 +76,10 @@ namespace PlagiarismTest
             //    Console.WriteLine();
             //}
 
-        }
-
-        static void GetAllDistances(Chunk chunk, List<Chunk> library)
-        {
-            foreach(var c in library)
+            }
+            catch (Exception ex)
             {
-                //int dist = Chunk.LevenshteinDistance(String.Join('\n', c._lines), String.Join('\n', chunk._lines));
-                //Console.WriteLine(c.path + " --- " + dist.ToString());
-                Console.WriteLine("Comparing with: " + c.path);
-                Detector.Detect(chunk, c);
+                Console.Error.WriteLine(ex.Message);
             }
         }
     }
