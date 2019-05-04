@@ -35,8 +35,20 @@ namespace Plagiarism
                 Console.WriteLine("The longest common lexeme row is " + longestLexeme.ToString());
             }
 
-            //var res = ((longestCommon.Length/lengthA) * 100)/dist;
+            double res = 0;
+
+            if(isCpp)
+            {
+
+            }
+            else
+            {
+
+            }
+
             Console.WriteLine();
+
+            Console.WriteLine("Plagiarism coefficient is " + res.ToString());
         }
 
         public static void DetectAll(Chunk example, List<Chunk> chunks, bool isCpp)
