@@ -14,14 +14,28 @@ namespace PlagiarismTest
         static void Main(string[] args)
         {
             //Chunk chunk = Chunk.FromDirectory(@"E:\JavaScriptProjects\empty-example\","*.js");
-            var code = @"for (int i = 0; i < 5; i++) res *= i";
-            LexicalAnalyzer lexer = new LexicalAnalyzer();
-            var lexemes = lexer.process(code);
-            foreach(var lex in lexemes)
+
+            Chunk chunk = new Chunk();
+
+            if(args.Length < 1)
             {
                 Console.WriteLine($"'{lex.value}' - {lex.type}");
             }
-            Console.ReadLine();
+
+            FSChunkLibrary library;
+
+            try
+            {
+                library = new FSChunkLibrary(args[0]);
+            }
+            catch
+            {
+                Console.WriteLine("Errors");
+                return;
+            }
+
+            var chunks = library.chunks;
+
         }
     }
 }
