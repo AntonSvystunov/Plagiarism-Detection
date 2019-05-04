@@ -85,8 +85,8 @@ namespace Plagiarism
 
         public static int LevenshteinDistance(string str1, string str2)
         {
-            int n = str1.Length;
-            int m = str2.Length;
+            var n = str1.Length;
+            var m = str2.Length;
             int[,] distanceMatrix = new int[n + 1, m + 1];
 
             if (n == 0) return m;
@@ -101,9 +101,8 @@ namespace Plagiarism
                 {
                     int distance = (str1[i - 1] == str2[j - 1]) ? 0 : 1;
 
-                    distanceMatrix[i, j] = Math.Min(
-                        Math.Min(distanceMatrix[i - 1, j] + 1, distanceMatrix[i, j - 1] + 1),
-                        distanceMatrix[i - 1, j - 1] + distance);
+                    distanceMatrix[i, j] = Math.Min(Math.Min(distanceMatrix[i - 1, j] + 1,
+                        distanceMatrix[i, j - 1] + 1), distanceMatrix[i - 1, j - 1] + distance);
                 }
             }
 
