@@ -18,8 +18,9 @@ namespace Plagiarism.Data
 
             foreach(var dir in dirs)
             {
-                chunks.Add(Chunk.FromDirectory(dir, ".cpp"));
+                chunks.Add(Chunk.FromDirectory(dir, "*.cpp"));
             }
+
         }
 
         public List<Chunk> GetLibrary()

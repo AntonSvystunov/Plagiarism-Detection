@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "PlagiarismTest": {
+      "commandName": "Project",
+      "commandLineArgs": "C:\\Alex\\C++"
+    }
+  }
+}

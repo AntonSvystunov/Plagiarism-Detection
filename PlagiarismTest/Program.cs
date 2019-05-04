@@ -17,21 +17,25 @@ namespace PlagiarismTest
 
             Chunk chunk = new Chunk();
 
-            if(args[0].Length < 1)
+            if(args.Length < 1)
             {
                 Console.WriteLine("Wrong path");
                 return;
             }
 
+            FSChunkLibrary library;
+
             try
             {
-                FSChunkLibrary library = new FSChunkLibrary(args[0]);
+                library = new FSChunkLibrary(args[0]);
             }
             catch
             {
                 Console.WriteLine("Errors");
                 return;
             }
+
+            var chunks = library.chunks;
 
         }
     }
