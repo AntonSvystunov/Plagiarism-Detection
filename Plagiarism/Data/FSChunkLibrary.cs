@@ -10,7 +10,7 @@ namespace Plagiarism.Data
     {
         private List<Chunk> chunks;
 
-        public FSChunkLibrary(string dirPath)
+        public FSChunkLibrary(string dirPath, string filter)
         {
             chunks = new List<Chunk>();
 
@@ -18,7 +18,7 @@ namespace Plagiarism.Data
 
             foreach(var dir in dirs)
             {
-                chunks.Add(Chunk.FromDirectory(dir, "*.cpp"));
+                chunks.Add(Chunk.FromDirectory(dir, filter));
             }
 
         }

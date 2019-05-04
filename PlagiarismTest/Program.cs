@@ -31,26 +31,27 @@ namespace PlagiarismTest
             //Chunk chunk2 = Chunk.FromDirectory(@"E:\Projects C++\sandboxapp", "*.cpp");
             try
             {
-                if (args.Length < 1)
+                if (args.Length < 3)
                 {
                     Console.WriteLine("Too few args");
-                    Console.WriteLine("USAGE <path-to-project> [<filter>] [-cpp]");
+                    Console.WriteLine("USAGE <path-to-project> <path-to-codebase> <filter> [-cpp]");
                 }
 
                 string filename = args[0];
-                string filter = null;
+                string libbase = args[1];
+                string filter = args[2];
                 bool isCpp = false;
 
-                if (args.Length > 1)
+                if (args.Length > 3)
                 {
-
+                    isCpp = args[3].Trim() == "-cpp";
                 }
 
                 FSChunkLibrary library;
 
                 try
                 {
-                    library = new FSChunkLibrary(args[0]);
+                    library = new FSChunkLibrary(libbase, filter);
                 }
                 catch
                 {
@@ -60,9 +61,9 @@ namespace PlagiarismTest
 
                 var chunks = library.GetLibrary();
 
-                var example = Chunk.FromDirectory("C:/Alex/C++/lab22", "*.cpp");
+                var example = Chunk.FromDirectory(filename, filter);
 
-                Detector.DetectAll(example, chunks);
+                Detector.DetectAll(example, chunks, isCpp);
 
                 Console.ReadLine();
             }

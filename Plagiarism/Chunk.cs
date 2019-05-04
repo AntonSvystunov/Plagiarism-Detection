@@ -196,6 +196,10 @@ namespace Plagiarism
                 }
             }
 
+            if(lex1.Count == 0)
+            {
+                return 0;
+            }
             return lex1.GetRange(row - a[row, col], a[row, col]).Count / lex1.Count;
         }
 
