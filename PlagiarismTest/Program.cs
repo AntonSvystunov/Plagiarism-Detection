@@ -10,57 +10,45 @@ namespace PlagiarismTest
 {
     class Program
     {
+        static void Process(string filename)
+        {
 
-        static void Main(string[] args)
+        }
+
+        static void Test1()
         {
             Chunk chunk1 = Chunk.FromDirectory(@"E:\Projects C++\sandboxapp", "*.cpp");
             Chunk chunk2 = Chunk.FromDirectory(@"E:\Projects C++\sandboxapp2", "*.cpp");
 
-            LexicalAnalyzer lexical = new LexicalAnalyzer();
-            var lex1 = lexical.process(chunk1.SourceCode);
-            var lex2 = lexical.process(chunk2.SourceCode);
+            var l = Chunk.FindLongestCommonLexemeRow(chunk1.SourceCode, chunk2.SourceCode);
+            Console.WriteLine(l.Count);
+            Console.ReadLine();
+        }
 
-            foreach (var lex in lex1)
+        static void Main(string[] args)
+        {
+            try
             {
-                Console.WriteLine($"'{lex.value}' + {lex.type}");
+                if (args.Length < 1)
+                {
+                    Console.WriteLine("Too few args");
+                    Console.WriteLine("USAGE <path-to-project> [<filter>] [-cpp]");
+                }
+
+                string filename = args[0];
+                string filter = null;
+                bool isCpp = false;
+
+                if (args.Length > 1)
+                {
+
+                }
+
             }
-
-            //Chunk chunk = new Chunk();
-
-            //if(args.Length < 1)
-            //{
-            //    Console.WriteLine($"'{lex.value}' - {lex.type}");
-            //}
-
-            //FSChunkLibrary library;
-
-            //try
-            //{
-            //    library = new FSChunkLibrary(args[0]);
-            //}
-            //catch
-            //{
-            //    Console.WriteLine("Errors");
-            //    return;
-            //}
-
-            //var chunks = library.chunks;
-
-            Console.WriteLine(Chunk.FindLongestCommonSubstring("britanicaeng", "britanicahin"));
-            Console.WriteLine(Chunk.FindLongestCommonSubstring("britanicaengqwerqwerqwerqwer", "britanicahinqwerqwerqwerqwer"));
-            Console.WriteLine(Chunk.FindLongestCommonSubstring("britani1234567890caeng", "britanici1234567890ahin"));
-            Console.ReadKey();
-
-            //foreach (var c in chunks)
-            //{
-            //    Console.WriteLine(c.path);
-            //    foreach(var line in c._lines)
-            //    {
-            //        Console.WriteLine(line);
-            //    }
-            //    Console.WriteLine();
-            //}
-
+            catch (Exception ex)
+            {
+                Console.Error.WriteLine(ex.Message);
+            }
         }
     }
 }

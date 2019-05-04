@@ -4,6 +4,7 @@ using System.IO;
 using System.Text;
 using System.Linq;
 using System.Text.RegularExpressions;
+using Plagiarism.Lexer;
 
 namespace Plagiarism
 {
@@ -106,6 +107,41 @@ namespace Plagiarism
             }
 
             return distanceMatrix[n, m];
+        }
+
+        public static List<Lexeme> FindLongestCommonLexemeRow(string str1, string str2)
+        {
+            var lexer = new LexicalAnalyzer();
+
+            List<Lexeme> lex1 = lexer.process(str1);
+
+            lexer = new LexicalAnalyzer();
+            List<Lexeme> lex2 = lexer.process(str2);
+
+            lex1.RemoveAll(lex => lex.type == LexerType.COMMENT);
+            lex2.RemoveAll(lex => lex.type == LexerType.COMMENT);
+
+            int[,] a = new int[lex1.Count + 1, lex2.Count + 1];
+            int row = 0;
+            int col = 0;
+
+            for (var i = 0; i < lex1.Count; i++)
+            {
+                for (var j = 0; j < lex2.Count; j++)
+                {
+                    if (lex1[i].type == lex2[j].type)
+                    {
+                        int len = a[i + 1, j + 1] = a[i, j] + 1;
+                        if (len > a[row, col])
+                        {
+                            row = i + 1;
+                            col = j + 1;
+                        }
+                    }
+                }
+            }
+
+            return lex1.GetRange(row - a[row, col], a[row, col]);
         }
 
         public static string FindLongestCommonSubstring(string str1, string str2)
