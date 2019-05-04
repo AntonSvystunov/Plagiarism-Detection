@@ -6,7 +6,7 @@ namespace Plagiarism
 {
     public static class Detector
     {
-        static public void Detect(Chunk chunkA, Chunk chunkB, bool isCpp)
+        static public void Detect(Chunk chunkA, Chunk chunkB, bool isCpp,int lexlenA = 0)
         {
             string linesA = String.Join('\n', chunkA._lines);
             string linesB = String.Join('\n', chunkB._lines);
@@ -14,19 +14,24 @@ namespace Plagiarism
             var lengthA = linesA.Length;
             var lengthB = linesB.Length;
 
-            
+            int longestLexeme = 0;
+            int dist = -1, lineDist = -1;
+            double lexemDist =-1;
 
-            if (chunkA._lines.Count < 1000 && chunkB._lines.Count < 1000 && linesA.Length < 10000 && linesB.Length < 10000)
+
+            bool doleven = chunkA._lines.Count < 1000 && chunkB._lines.Count < 1000 && linesA.Length < 10000 && linesB.Length < 10000;
+            
+            if (doleven)
             {
-                int dist = Chunk.LevenshteinDistance(linesA, linesB);
+                dist = Chunk.LevenshteinDistance(linesA, linesB);
                 Console.WriteLine("Levenshtein words distance is " + dist.ToString());
 
-                var lineDist = Chunk.LevenshteinDistance(chunkA._lines.ToArray(), chunkB._lines.ToArray());
+                lineDist = Chunk.LevenshteinDistance(chunkA._lines.ToArray(), chunkB._lines.ToArray());
                 Console.WriteLine("Levenshtein lines distance is " + lineDist.ToString());
 
                 if (isCpp)
                 {
-                    var lexemDist = Chunk.LevenshteinDistanceLexeme(chunkA._lines.ToArray(), chunkB._lines.ToArray());
+                    lexemDist = Chunk.LevenshteinDistanceLexeme(chunkA._lines.ToArray(), chunkB._lines.ToArray());
                     Console.WriteLine("Levenshtein lexeme distance is " + lexemDist.ToString());
                 }
             }
@@ -36,24 +41,73 @@ namespace Plagiarism
 
             if (isCpp)
             {
-                var longestLexeme = Chunk.FindLongestCommonLexemeRow(linesA, linesB).Count;
+                longestLexeme = Chunk.FindLongestCommonLexemeRow(linesA, linesB).Count;
                 Console.WriteLine("The longest common lexeme row is " + longestLexeme.ToString());
             }
 
             double res = 0;
 
-            if(isCpp)
+            if (longestCommon.Length / linesA.Length > 0.01)
             {
+                res += longestCommon.Length / linesA.Length;
+            }
+
+            if (isCpp&&lexlenA>0)
+            {
+                if (longestLexeme / linesA.Length > 0.01)
+                {
+                    res += longestCommon.Length / lexlenA;
+                }
+            }
+
+            if (doleven)
+            {
+                if (dist != -1)
+                {
+                    if (dist != 0)
+                    {
+                        res += 20 / dist;
+                    }
+                    else
+                    {
+                        res += 2;
+                    }
+                }
+
+                if (lineDist != -1)
+                {
+                    if (lineDist != 0)
+                    {
+                        res += 3 / lineDist;
+                    }
+                    else
+                    {
+                        res += 2;
+                    }
+                }
+
+                if (isCpp)
+                {
+                    if (lexemDist != -1)
+                    {
+                        if (lexemDist != 0)
+                        {
+                            res += 3 / lexemDist;
+                        }
+                        else
+                        {
+                            res += 2;
+                        }
+                    }
+                }
 
             }
-            else
-            {
 
-            }
+            double tanhres = Math.Tanh(res);
+            
+            Console.WriteLine("Plagiarism score: " + Math.Round(tanhres*100,2)+ "%");
 
             Console.WriteLine();
-
-            Console.WriteLine("Plagiarism coefficient is " + res.ToString());
         }
 
         public static void DetectAll(Chunk example, List<Chunk> chunks, bool isCpp)
@@ -75,7 +129,7 @@ namespace Plagiarism
                 {
                     Console.WriteLine("Number of lexemes in example is " + cnt.ToString());
                 }
-                Detector.Detect(example, c, isCpp);
+                Detector.Detect(example, c, isCpp,cnt);
             }
         }
     }
