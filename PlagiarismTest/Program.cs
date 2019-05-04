@@ -13,8 +13,8 @@ namespace PlagiarismTest
 
         static void Main(string[] args)
         {
-            Chunk chunk1 = Chunk.FromDirectory(@"E:\Projects C++\sandboxapp", "*.cpp");
-            Chunk chunk2 = Chunk.FromDirectory(@"E:\Projects C++\sandboxapp", "*.cpp");
+            //Chunk chunk1 = Chunk.FromDirectory(@"E:\Projects C++\sandboxapp", "*.cpp");
+            //Chunk chunk2 = Chunk.FromDirectory(@"E:\Projects C++\sandboxapp", "*.cpp");
 
             //Chunk chunk = new Chunk();
 
@@ -40,6 +40,10 @@ namespace PlagiarismTest
             Console.WriteLine(Chunk.FindLongestCommonSubstring("britanicaeng", "britanicahin"));
             Console.WriteLine(Chunk.FindLongestCommonSubstring("britanicaengqwerqwerqwerqwer", "britanicahinqwerqwerqwerqwer"));
             Console.WriteLine(Chunk.FindLongestCommonSubstring("britani1234567890caeng", "britanici1234567890ahin"));
+
+            string[] str1 = { "qwer1", "qwer2", "qwer5" };
+            string[] str2 = { "qwer1", "qwer2" };
+            Console.WriteLine(Chunk.LevenshteinDistance(str1, str2));
             Console.ReadKey();
 
             //foreach (var c in chunks)
