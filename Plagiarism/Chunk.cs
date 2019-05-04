@@ -90,9 +90,9 @@ namespace Plagiarism
             for (int i = 0; i <= n; distanceMatrix[i, 0] = i++) ;
             for (int i = 0; i <= m; distanceMatrix[0, i] = i++) ;
 
-            for (int i = 0; i <= n; i++)
+            for (int i = 1; i <= n; i++)
             {
-                for (int j = 0; j <= m; j++)
+                for (int j = 1; j <= m; j++)
                 {
                     int distance = (str1[i - 1] == str2[j - 1]) ? 0 : 1;
 
