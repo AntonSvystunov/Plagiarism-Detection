@@ -9,7 +9,10 @@ namespace Plagiarism
 {
     public class Chunk
     {
-        public List<string> _lines;
+        public List<string> _lines { get; }
+
+        public string SourceCode => string.Join('\n', _lines);
+
         public string path;
 
         public Chunk()

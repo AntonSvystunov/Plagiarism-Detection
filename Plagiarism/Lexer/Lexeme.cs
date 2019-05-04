@@ -29,5 +29,15 @@ namespace Plagiarism.Lexer
             this.value = value;
             this.type = type;
         }
+
+        public static string MergeLexemes(IEnumerable<Lexeme> lexemes)
+        {
+            var sb = new StringBuilder();
+            foreach(var lex in lexemes)
+            {
+                sb.Append(lex.value);
+            }
+            return sb.ToString();
+        }
     }
 }
