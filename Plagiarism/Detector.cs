@@ -49,7 +49,7 @@ namespace Plagiarism
 
             if (longestCommon.Length / linesA.Length > 0.01)
             {
-                res += longestCommon.Length / linesA.Length;
+                res += 3 * (longestCommon.Length / (linesA.Length));
             }
 
             if (isCpp&&lexlenA>0)
@@ -92,7 +92,7 @@ namespace Plagiarism
                     {
                         if (lexemDist != 0)
                         {
-                            res += 5 / lexemDist;
+                            res += 8 / lexemDist;
                         }
                         else
                         {

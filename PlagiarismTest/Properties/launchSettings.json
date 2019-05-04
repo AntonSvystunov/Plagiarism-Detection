@@ -2,7 +2,7 @@
   "profiles": {
     "PlagiarismTest": {
       "commandName": "Project",
-      "commandLineArgs": "C:\\Users\\1111\\Practice\\Slava\\1 C:\\Users\\1111\\Practice\\Slava *.ipynb "
+      "commandLineArgs": "E:\\ProjectsC++\\sandboxapp\\ E:\\ProjectsC++\\  *.cpp -cpp"
     }
   }
 }
