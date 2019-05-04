@@ -9,17 +9,30 @@ namespace Plagiarism.Lexer
     {
         private TextReader reader;
         private char peek = ' ';
+        private bool EOF = false;
+
+        public static HashSet<string> keywords = new HashSet<string>();
 
         private List<Lexeme> result = new List<Lexeme>();
-        private HashSet<string> keywords = new HashSet<string>();
+
+        public LexicalAnalyzer()
+        {
+            if (keywords.Count == 0)
+            {
+                initKeys();
+            }
+        }
 
         public LexicalAnalyzer(TextReader reader)
         {
             this.reader = reader;
-            initKeys();
+            if (keywords.Count == 0)
+            {
+                initKeys();
+            }
         }
 
-        private void initKeys()
+        private static void initKeys()
         {
             char[] keys = "\"asm\" | \"auto\" | \"break\" | \"case\" | \"char\" | \"class\" | \"const\" | \"continue\" | \"default\" | \"delete\" | \"do\" | \"double\" | \"else\" | \"enum\" | \"extern\" | \"float\" | \"for\" | \"friend\" | \"goto\" | \"if\" | \"inline\" | \"int\" | \"long\" | \"new\" | \" _operator\" | \"private\" | \"protected\" | \"public\" | \"register\" | \"return\" | \"short\" | \"signed\" | \"sizeof\" | \"static\" | \"struct\" | \"switch\" | \"template\" | \"this\" | \"throw\" | \"typedef\" | \"union\" | \"unsigned\" | \"virtual\" | \"void\" | \"volatile\" | \"while\" | \"namespace\" | \"using\"".ToCharArray();
             StringBuilder sb = new StringBuilder();
@@ -603,10 +616,11 @@ namespace Plagiarism.Lexer
             try
             {
                 int t;
-                if ((t = reader.Read()) != -1) {
+                if ((t = reader.Read()) > 0) {
                     peek = (char)t;
                     return true;
                 } else {
+                    EOF = true;
                     return false;
                 }
             }
@@ -616,22 +630,38 @@ namespace Plagiarism.Lexer
             }
         }
 
-        public void process()
+        public List<Lexeme> process(TextReader reader)
         {
+            result = new List<Lexeme>();
+            this.reader = reader;
+
             while (getNext())
             {
                 test();
             }
 
-            foreach (Lexeme l in result)
+            return result;
+        }
+
+        public List<Lexeme> process(string code)
+        {
+            result = new List<Lexeme>();
+            this.reader = new StringReader(code);
+
+            while (getNext())
             {
-                Console.WriteLine("\"" + l.value + "\" -> " + l.type);
+                test();
             }
+
+            return result;
         }
 
 
         private void test()
         {
+            if (EOF)
+                return;
+
             if (char.IsWhiteSpace(peek))
                 return;
 
@@ -661,7 +691,7 @@ namespace Plagiarism.Lexer
             }
             else
             {
-            _operator();
+                _operator();
             }
         }
     }
