@@ -23,7 +23,18 @@ namespace Plagiarism
 
         public double GetDistance(Chunk other)
         {
-            return 0;
+            double res = 0;
+            foreach(string lineFromThisChunk in _lines)
+            {
+                int min = 99999;
+                foreach(string lineFromAnotherChunk in other._lines)
+                {
+                    if (LevenshteinDistance(lineFromThisChunk, lineFromAnotherChunk) < min)
+                        min = LevenshteinDistance(lineFromThisChunk, lineFromAnotherChunk);
+                }
+                res += min;
+            }
+            return res;
         }
 
         public static Chunk FromFile(string filename)
@@ -52,6 +63,33 @@ namespace Plagiarism
         {
             _lines.AddRange(chunkToAdd._lines);
             return this;
+        }
+
+        public static int LevenshteinDistance(string str1, string str2)
+        {
+            int n = str1.Length;
+            int m = str2.Length;
+            int[,] distanceMatrix = new int[n + 1, m + 1];
+
+            if (n == 0) return m;
+            if (m == 0) return n;
+
+            for (int i = 0; i <= n; distanceMatrix[i, 0] = i++) ;
+            for (int i = 0; i <= m; distanceMatrix[0, i] = i++) ;
+
+            for (int i = 0; i <= n; i++)
+            {
+                for (int j = 0; j <= m; j++)
+                {
+                    int distance = (str1[i - 1] == str2[j - 1]) ? 0 : 1;
+
+                    distanceMatrix[i, j] = Math.Min(
+                        Math.Min(distanceMatrix[i - 1, j] + 1, distanceMatrix[i, j - 1] + 1),
+                        distanceMatrix[i - 1, j - 1] + distance);
+                }
+            }
+
+            return distanceMatrix[n, m];
         }
     }
 }
