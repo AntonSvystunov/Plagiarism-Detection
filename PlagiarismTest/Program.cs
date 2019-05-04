@@ -10,32 +10,51 @@ namespace PlagiarismTest
 {
     class Program
     {
+        static void Process(string filename)
+        {
+
+        }
+
+        static void Test1()
+        {
+            //Chunk chunk1 = Chunk.FromDirectory(@"E:\Projects C++\sandboxapp", "*.cpp");
+            //Chunk chunk2 = Chunk.FromDirectory(@"E:\Projects C++\sandboxapp2", "*.cpp");
+
+            var l = Chunk.FindLongestCommonLexemeRow(chunk1.SourceCode, chunk2.SourceCode);
+            Console.WriteLine(l.Count);
+            Console.ReadLine();
+        }
 
         static void Main(string[] args)
         {
-            //Chunk chunk1 = Chunk.FromDirectory(@"E:\Projects C++\sandboxapp", "*.cpp");
-            //Chunk chunk2 = Chunk.FromDirectory(@"E:\Projects C++\sandboxapp", "*.cpp");
+            try
+            {
+                if (args.Length < 1)
+                {
+                    Console.WriteLine("Too few args");
+                    Console.WriteLine("USAGE <path-to-project> [<filter>] [-cpp]");
+                }
 
-            //Chunk chunk = new Chunk();
+                string filename = args[0];
+                string filter = null;
+                bool isCpp = false;
 
-            //if(args.Length < 1)
-            //{
-            //    Console.WriteLine($"'{lex.value}' - {lex.type}");
-            //}
+                if (args.Length > 1)
+                {
 
-            //FSChunkLibrary library;
+            FSChunkLibrary library;
 
-            //try
-            //{
-            //    library = new FSChunkLibrary(args[0]);
-            //}
-            //catch
-            //{
-            //    Console.WriteLine("Errors");
-            //    return;
-            //}
+            try
+            {
+                library = new FSChunkLibrary(args[0]);
+            }
+            catch
+            {
+                Console.WriteLine("Errors");
+                return;
+            }
 
-            //var chunks = library.chunks;
+            var chunks = library.GetLibrary();
 
             Console.WriteLine(Chunk.FindLongestCommonSubstring("britanicaeng", "britanicahin"));
             Console.WriteLine(Chunk.FindLongestCommonSubstring("britanicaengqwerqwerqwerqwer", "britanicahinqwerqwerqwerqwer"));
@@ -45,6 +64,11 @@ namespace PlagiarismTest
             string[] str2 = { "qwer1", "qwer2" };
             Console.WriteLine(Chunk.LevenshteinDistance(str1, str2));
             Console.ReadKey();
+
+            var example = Chunk.FromDirectory("C:/Alex/C++/lab22", "*.cpp");
+
+            Console.WriteLine("Distances for " + example.path);
+            GetAllDistances(example, chunks);
 
             //foreach (var c in chunks)
             //{
@@ -56,6 +80,11 @@ namespace PlagiarismTest
             //    Console.WriteLine();
             //}
 
+            }
+            catch (Exception ex)
+            {
+                Console.Error.WriteLine(ex.Message);
+            }
         }
     }
 }
