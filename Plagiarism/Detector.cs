@@ -14,6 +14,12 @@ namespace Plagiarism
 
             string longestCommon = Chunk.FindLongestCommonSubstring(linesA, linesB);
             Console.WriteLine("The longest common substring length is " + longestCommon.Length);
+
+            var num = Chunk.FindLongestCommonLexemeRow(linesA, linesB).Count;
+            Console.WriteLine("The longest common lexeme row is " + num.ToString());
+
+            
+
             Console.WriteLine();
         }
     }
