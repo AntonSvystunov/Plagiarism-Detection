@@ -36,6 +36,16 @@ namespace PlagiarismTest
 
             var chunks = library.chunks;
 
+            //foreach (var c in chunks)
+            //{
+            //    Console.WriteLine(c.path);
+            //    foreach(var line in c._lines)
+            //    {
+            //        Console.WriteLine(line);
+            //    }
+            //    Console.WriteLine();
+            //}
+
         }
     }
 }
