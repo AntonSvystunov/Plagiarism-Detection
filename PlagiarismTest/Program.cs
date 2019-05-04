@@ -13,7 +13,8 @@ namespace PlagiarismTest
 
         static void Main(string[] args)
         {
-            //Chunk chunk = Chunk.FromDirectory(@"E:\JavaScriptProjects\empty-example\","*.js");
+            Chunk chunk1 = Chunk.FromDirectory(@"E:\Projects C++\sandboxapp", "*.cpp");
+            Chunk chunk2 = Chunk.FromDirectory(@"E:\Projects C++\sandboxapp", "*.cpp");
 
             //Chunk chunk = new Chunk();
 
