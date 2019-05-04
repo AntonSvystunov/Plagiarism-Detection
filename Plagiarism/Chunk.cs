@@ -9,7 +9,8 @@ namespace Plagiarism
 {
     public class Chunk
     {
-        private List<string> _lines;
+        public List<string> _lines;
+        public string path;
 
         public Chunk()
         {
@@ -65,6 +66,8 @@ namespace Plagiarism
             {
                 res.MergeChunks(Chunk.FromFile(file));
             }
+
+            res.path = dirPath;
 
             return res;
         }
