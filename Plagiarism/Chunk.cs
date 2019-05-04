@@ -40,7 +40,17 @@ namespace Plagiarism
         public static Chunk FromFile(string filename)
         {
             var l = File.ReadAllLines(filename);
-            return new Chunk(l);
+            List<string> resLines = new List<string>();
+
+            foreach (var line in l)
+            {
+                if(line.Trim().Length > 0)
+                {
+                    resLines.Add(line);
+                }
+            }
+
+            return new Chunk(resLines.ToArray());
         }
 
         public static Chunk FromDirectory(string dirPath, string filter)
