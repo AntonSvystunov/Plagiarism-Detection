@@ -66,11 +66,11 @@ namespace Plagiarism
                 {
                     if (dist != 0)
                     {
-                        res += 20 / dist;
+                        res += 300 / dist;
                     }
                     else
                     {
-                        res += 2;
+                        res += 20000;
                     }
                 }
 
@@ -78,11 +78,11 @@ namespace Plagiarism
                 {
                     if (lineDist != 0)
                     {
-                        res += 3 / lineDist;
+                        res += 5 / lineDist;
                     }
                     else
                     {
-                        res += 2;
+                        res += 20000;
                     }
                 }
 
@@ -92,11 +92,11 @@ namespace Plagiarism
                     {
                         if (lexemDist != 0)
                         {
-                            res += 3 / lexemDist;
+                            res += 5 / lexemDist;
                         }
                         else
                         {
-                            res += 2;
+                            res += 20000;
                         }
                     }
                 }
