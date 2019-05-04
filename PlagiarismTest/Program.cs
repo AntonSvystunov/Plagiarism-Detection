@@ -17,10 +17,10 @@ namespace PlagiarismTest
 
             Chunk chunk = new Chunk();
 
-            if(args.Length < 1)
-            {
-                Console.WriteLine($"'{lex.value}' - {lex.type}");
-            }
+            //if(args.Length < 1)
+            //{
+            //    Console.WriteLine($"'{lex.value}' - {lex.type}");
+            //}
 
             FSChunkLibrary library;
 
