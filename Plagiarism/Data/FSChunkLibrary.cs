@@ -8,7 +8,7 @@ namespace Plagiarism.Data
 {
     public class FSChunkLibrary : IChunksLibrary
     {
-        public List<Chunk> chunks;
+        private List<Chunk> chunks;
 
         public FSChunkLibrary(string dirPath)
         {
@@ -25,7 +25,7 @@ namespace Plagiarism.Data
 
         public List<Chunk> GetLibrary()
         {
-            throw new NotImplementedException();
+            return chunks;
         }
     }
 }
