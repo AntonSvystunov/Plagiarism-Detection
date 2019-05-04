@@ -42,6 +42,7 @@ namespace Plagiarism
             return res;
         }
 
+        
         public static Chunk FromFile(string filename)
         {
             var l = File.ReadAllLines(filename);
