@@ -27,13 +27,14 @@ namespace PlagiarismTest
 
         static void Main(string[] args)
         {
+            //Chunk chunk1 = Chunk.FromDirectory(@"E:\Projects C++\sandboxapp", "*.cpp");
+            //Chunk chunk2 = Chunk.FromDirectory(@"E:\Projects C++\sandboxapp", "*.cpp");
             try
             {
                 if (args.Length < 1)
                 {
                     Console.WriteLine("Too few args");
                     Console.WriteLine("USAGE <path-to-project> [<filter>] [-cpp]");
-                }
 
                 string filename = args[0];
                 string filter = null;
