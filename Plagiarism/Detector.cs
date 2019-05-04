@@ -21,8 +21,8 @@ namespace Plagiarism
 
             bool doleven = chunkA._lines.Count < 1000 && chunkB._lines.Count < 1000 && linesA.Length < 10000 && linesB.Length < 10000;
             
-            if (doleven)
-            {
+            //if (doleven)
+            //{
                 dist = Chunk.LevenshteinDistance(linesA, linesB);
                 Console.WriteLine("Levenshtein words distance is " + dist.ToString());
 
@@ -34,7 +34,7 @@ namespace Plagiarism
                     lexemDist = Chunk.LevenshteinDistanceLexeme(chunkA._lines.ToArray(), chunkB._lines.ToArray());
                     Console.WriteLine("Levenshtein lexeme distance is " + lexemDist.ToString());
                 }
-            }
+            //}
 
             string longestCommon = Chunk.FindLongestCommonSubstring(linesA, linesB);
             Console.WriteLine("The longest common substring length is " + longestCommon.Length);
@@ -60,8 +60,8 @@ namespace Plagiarism
                 }
             }
 
-            if (doleven)
-            {
+            //if (doleven)
+            //{
                 if (dist != -1)
                 {
                     if (dist != 0)
@@ -101,11 +101,18 @@ namespace Plagiarism
                     }
                 }
 
-            }
+            //}
 
             double tanhres = Math.Tanh(res);
-            
-            Console.WriteLine("Plagiarism score: " + Math.Round(tanhres*100,2)+ "%");
+            double score = Math.Round(tanhres * 100, 2);
+
+
+            Console.WriteLine("Plagiarism score: " + score + "%");
+
+            if(score > 0.9)
+            {
+                Console.WriteLine("NICE TRY, COPYCAT!");
+            }
 
             Console.WriteLine();
         }
@@ -113,6 +120,8 @@ namespace Plagiarism
         public static void DetectAll(Chunk example, List<Chunk> chunks, bool isCpp)
         {
             Console.WriteLine("Distances for " + example.path);
+            Console.WriteLine();
+
             int cnt = 0;
             if (isCpp)
             {
@@ -124,7 +133,7 @@ namespace Plagiarism
             
             foreach (var c in chunks)
             {
-                Console.WriteLine("Compare with " + c.path);
+                Console.WriteLine("Comparing with " + c.path);
                 if (isCpp)
                 {
                     Console.WriteLine("Number of lexemes in example is " + cnt.ToString());
