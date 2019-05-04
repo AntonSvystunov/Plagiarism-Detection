@@ -58,44 +58,15 @@ namespace PlagiarismTest
 
                 var chunks = library.GetLibrary();
 
-                //Console.WriteLine(Chunk.FindLongestCommonSubstring("britanicaeng", "britanicahin"));
-                //Console.WriteLine(Chunk.FindLongestCommonSubstring("britanicaengqwerqwerqwerqwer", "britanicahinqwerqwerqwerqwer"));
-                //Console.WriteLine(Chunk.FindLongestCommonSubstring("britani1234567890caeng", "britanici1234567890ahin"));
-                //Console.ReadKey();
-
                 var example = Chunk.FromDirectory("C:/Alex/C++/lab22", "*.cpp");
 
-                Console.WriteLine("Distances for " + example.path);
-                GetAllDistances(example, chunks);
+                Detector.DetectAll(example, chunks);
 
-                ////foreach (var c in chunks)
-                ////{
-                ////    Console.WriteLine(c.path);
-                ////    foreach(var line in c._lines)
-                ////    {
-                ////        Console.WriteLine(line);
-                ////    }
-                ////    Console.WriteLine();
-                ////}
-
+                Console.ReadLine();
             }
             catch (Exception ex)
             {
                 Console.Error.WriteLine(ex.Message);
-            }
-        }
-
-        private static void GetAllDistances(Chunk example, List<Chunk> chunks)
-        {
-            var lexer = new Plagiarism.Lexer.LexicalAnalyzer();
-            var r = lexer.process(example.SourceCode);
-            r.RemoveAll(l => l.type == LexerType.COMMENT);
-            var cnt = r.Count;
-            foreach (var c in chunks)
-            {
-                Console.WriteLine("Compare with " + c.path);
-                Console.WriteLine("Number of lexemes in example is " + cnt.ToString());
-                Detector.Detect(example, c);
             }
         }
     }
