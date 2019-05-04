@@ -11,15 +11,19 @@ namespace Plagiarism
             string linesA = String.Join('\n', chunkA._lines);
             string linesB = String.Join('\n', chunkB._lines);
 
+            var lengthA = linesA.Length;
+            var lengthB = linesB.Length;
+
             int dist = Chunk.LevenshteinDistance(linesA, linesB);
             Console.WriteLine("Levenshtein distance is " + dist.ToString());
 
             string longestCommon = Chunk.FindLongestCommonSubstring(linesA, linesB);
             Console.WriteLine("The longest common substring length is " + longestCommon.Length);
 
-            var num = Chunk.FindLongestCommonLexemeRow(linesA, linesB).Count;
-            Console.WriteLine("The longest common lexeme row is " + num.ToString());
+            var logestLex = Chunk.FindLongestCommonLexemeRow(linesA, linesB).Count;
+            Console.WriteLine("The longest common lexeme row is " + logestLex.ToString());
 
+            var res = ((longestCommon.Length/lengthA) * 100)/dist;
             Console.WriteLine();
         }
 
