@@ -109,7 +109,7 @@ namespace Plagiarism
 
             Console.WriteLine("Plagiarism score: " + score + "%");
 
-            if(score > 0.9)
+            if(score > 80)
             {
                 Console.WriteLine("NICE TRY, COPYCAT!");
             }
