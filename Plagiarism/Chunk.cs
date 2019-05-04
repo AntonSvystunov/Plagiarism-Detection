@@ -25,10 +25,10 @@ namespace Plagiarism
         public double GetDistance(Chunk other)
         {
             double res = 0;
-            foreach(string lineFromThisChunk in _lines)
+            foreach (string lineFromThisChunk in _lines)
             {
                 int min = 99999;
-                foreach(string lineFromAnotherChunk in other._lines)
+                foreach (string lineFromAnotherChunk in other._lines)
                 {
                     if (LevenshteinDistance(lineFromThisChunk, lineFromAnotherChunk) < min)
                         min = LevenshteinDistance(lineFromThisChunk, lineFromAnotherChunk);
@@ -45,7 +45,7 @@ namespace Plagiarism
 
             foreach (var line in l)
             {
-                if(line.Trim().Length > 0)
+                if (line.Trim().Length > 0)
                 {
                     resLines.Add(line);
                 }
@@ -103,6 +103,31 @@ namespace Plagiarism
             }
 
             return distanceMatrix[n, m];
+        }
+
+        public static string FindLongestCommonSubstring(string str1, string str2)
+        {
+            int[,] a = new int[str1.Length + 1, str2.Length + 1];
+            int row = 0;
+            int col = 0;
+
+            for (var i = 0; i < str1.Length; i++)
+            {
+                for (var j = 0; j < str2.Length; j++)
+                {
+                    if (str1[i] == str2[j])
+                    {
+                        int len = a[i + 1, j + 1] = a[i, j] + 1;
+                        if (len > a[row, col])
+                        {
+                            row = i + 1;
+                            col = j + 1;
+                        }
+                    }
+                }
+            }
+
+            return str1.Substring(row - a[row, col], a[row, col]);
         }
     }
 }
